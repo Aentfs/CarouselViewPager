@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context="com.mrwii.carousel.carouselviewpager.MainActivity">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_slider"
+    <TextView
+        android:id="@+id/caption"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
+        android:text="Touring Maschine"
+        android:textAlignment="center"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_slider1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="30dp"
+        android:layout_weight="1"
         android:paddingLeft="34dp"
         android:paddingRight="12dp" />
-</RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_slider2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="34dp"
+        android:paddingRight="12dp"
+        android:layout_weight="1" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_slider3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="34dp"
+        android:paddingRight="12dp"
+        android:layout_weight="1">
+
+    </android.support.v4.view.ViewPager>
+</LinearLayout>
