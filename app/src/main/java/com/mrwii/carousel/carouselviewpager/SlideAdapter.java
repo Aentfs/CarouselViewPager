@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.ArrayMap;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,19 +24,18 @@ public class SlideAdapter extends FragmentPagerAdapter {
     private int LOOPS = 1000;
     public int FIRST_PAGE = PAGES * LOOPS / 2;
 
-    private LinkedHashMap<String, Intent> mContent;
+    private ArrayList<Intent> mContent;
 
-    public SlideAdapter(FragmentManager fm, LinkedHashMap<String, Intent> content) {
+    public SlideAdapter(FragmentManager fm, ArrayList<Intent> content) {
         super(fm);
-        mContent = new LinkedHashMap<>(content);
+        mContent = new ArrayList<>(content);
         PAGES = mContent.size();
     }
 
     @Override
     public Fragment getItem(int position) {
         position = position % PAGES;
-        String key = mContent.keySet().toArray(new String[mContent.size()])[position];
-        return SlideFragment.newInstance(key, mContent.get(key));
+        return SlideFragment.newInstance(mContent.get(position));
     }
 
     @Override

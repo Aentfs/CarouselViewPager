@@ -7,13 +7,14 @@ import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String ARG_LIST_1 = "list1";
-    public static final String ARG_LIST_2 = "list1";
-    public static final String ARG_LIST_3 = "list1";
+    public static final String ARG_LIST_1 = "com.mrwii.carousel.carouselviewpager.mainactivity.list1";
+    public static final String ARG_LIST_2 = "com.mrwii.carousel.carouselviewpager.mainactivity.list2";
+    public static final String ARG_LIST_3 = "com.mrwii.carousel.carouselviewpager.mainactivity.list3";
 
     private SlideAdapter adapter1;
     private SlideAdapter adapter2;
@@ -29,35 +30,34 @@ public class MainActivity extends AppCompatActivity {
 
         Intent callIntent = getIntent();
 
-        LinkedHashMap<String, Intent> content1 = new LinkedHashMap<>();
-        LinkedHashMap<String, Intent> content2 = new LinkedHashMap<>();
-        LinkedHashMap<String, Intent> content3 = new LinkedHashMap<>();
+        ArrayList<Intent> content1 = new ArrayList<>();
+        ArrayList<Intent> content2 = new ArrayList<>();
+        ArrayList<Intent> content3 = new ArrayList<>();
 
         if(callIntent != null && callIntent.hasExtra(ARG_LIST_1) && callIntent.hasExtra(ARG_LIST_2) && callIntent.hasExtra(ARG_LIST_3)) {
-            content1 = ((MapWrapper<LinkedHashMap<String, Intent>>) callIntent.getSerializableExtra(ARG_LIST_1)).getMap();
-            content2 = ((MapWrapper<LinkedHashMap<String, Intent>>) callIntent.getSerializableExtra(ARG_LIST_2)).getMap();
-            content3 = ((MapWrapper<LinkedHashMap<String, Intent>>) callIntent.getSerializableExtra(ARG_LIST_3)).getMap();
+            content1 = (ArrayList<Intent>) callIntent.getSerializableExtra(ARG_LIST_1);
+            content2 = (ArrayList<Intent>) callIntent.getSerializableExtra(ARG_LIST_2);
+            content3 = (ArrayList<Intent>) callIntent.getSerializableExtra(ARG_LIST_3);
         }else{
-            LinkedHashMap<String, Intent> test = new LinkedHashMap<>();
-            test.put("TEst 1", null);
-            test.put("TEst 2", null);
-            test.put("TEst 3", null);
+            ArrayList<Intent> test = new ArrayList<>();
+            test.add(new Intent().putExtra(SlideFragment.ARG_STRING_TEXT, "Test 1"));
+            test.add(new Intent().putExtra(SlideFragment.ARG_STRING_TEXT, "Test 2"));
+            test.add(new Intent().putExtra(SlideFragment.ARG_STRING_TEXT, "Test 3"));
 
-            MapWrapper<LinkedHashMap<String, Intent>> testWrapper = new MapWrapper<>(test);
+            content1.add(new Intent(this, MainActivity.class)
+                    .putExtra(SlideFragment.ARG_STRING_TEXT, "Öffnungszeiten")
+                    .putExtra(ARG_LIST_1, test)
+                    .putExtra(ARG_LIST_2, test)
+                    .putExtra(ARG_LIST_3, test));
+            content1.add(new Intent().putExtra(SlideFragment.ARG_STRING_TEXT, "Anfahrt"));
+            content1.add(new Intent().putExtra(SlideFragment.ARG_STRING_TEXT,  "Geschichte"));
 
-            content1.put("Öffnungszeiten", new Intent(this, MainActivity.class)
-                    .putExtra(ARG_LIST_1, testWrapper)
-                    .putExtra(ARG_LIST_2, testWrapper)
-                    .putExtra(ARG_LIST_3, testWrapper));
-            content1.put("Anfahrt", null);
-            content1.put("Geschichte", null);
+            content2.add(new Intent().putExtra(SlideFragment.ARG_STRING_TEXT,  "Foto Gallerie"));
+            content2.add(new Intent().putExtra(SlideFragment.ARG_STRING_TEXT,  "Terasse"));
+            content2.add(new Intent().putExtra(SlideFragment.ARG_STRING_TEXT,  "Moop"));
 
-            content2.put("Foto Gallerie", null);
-            content2.put("Terasse", null);
-            content2.put("Moop", null);
-
-            content3.put("Puzzle", null);
-            content3.put("Quiz", null);
+            content3.add(new Intent().putExtra(SlideFragment.ARG_STRING_TEXT,  "Puzzle"));
+            content3.add(new Intent().putExtra(SlideFragment.ARG_STRING_TEXT,  "Quiz"));
         }
 
         viewPager1 = (ViewPager) findViewById(R.id.vp_slider1);

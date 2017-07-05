@@ -1,6 +1,7 @@
 package com.mrwii.carousel.carouselviewpager;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,21 +12,19 @@ import android.widget.TextView;
 
 
 public class SlideFragment extends Fragment {
-    private static final String ARG_STRING_TEXT = "stringText";
-    private static final String ARG_INTENT_ACTION = "intentClickAction";
+    public static final String ARG_STRING_TEXT = "com.mrwii.carousel.carouselviewpager.slidefragment.stringText";
+    public static final String ARG_INTENT = "com.mrwii.carousel.carouselviewpager.slidefragment.intentClickAction";
 
-    private String mText;
-    private Intent mAction;
+    private Intent mIntent;
     private TextView tvPos;
 
     public SlideFragment() {
         // Required empty public constructor
     }
 
-    public static SlideFragment newInstance(String text, Intent clickAction) {
+    public static SlideFragment newInstance(Intent intent) {
         Bundle args = new Bundle();
-        args.putString(ARG_STRING_TEXT, text);
-        args.putParcelable(ARG_INTENT_ACTION, clickAction);
+        args.putParcelable(ARG_INTENT, intent);
 
         SlideFragment fragment = new SlideFragment();
         fragment.setArguments(args);
@@ -36,8 +35,7 @@ public class SlideFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mText = getArguments().getString(ARG_STRING_TEXT);
-            mAction = getArguments().getParcelable(ARG_INTENT_ACTION);
+            mIntent = getArguments().getParcelable(ARG_INTENT);
         }
     }
 
@@ -49,14 +47,15 @@ public class SlideFragment extends Fragment {
         root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mAction != null) {
-                    getContext().startActivity(mAction);
+                PackageManager packageManager = getActivity().getPackageManager();
+                if (mIntent.resolveActivity(packageManager) != null) {
+                    getContext().startActivity(mIntent);
                 }
             }
         });
 
         tvPos = (TextView) root.findViewById(R.id.text);
-        tvPos.setText(mText);
+        tvPos.setText(mIntent.getStringExtra(ARG_STRING_TEXT));
         return root;
     }
 
