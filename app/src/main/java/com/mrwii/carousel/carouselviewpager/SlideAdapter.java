@@ -29,7 +29,10 @@ public class SlideAdapter extends FragmentPagerAdapter {
     public SlideAdapter(FragmentManager fm, ArrayList<Intent> content) {
         super(fm);
         mContent = new ArrayList<>(content);
+
         PAGES = mContent.size();
+        FIRST_PAGE = PAGES * LOOPS / 2;
+        FIRST_PAGE = FIRST_PAGE - (FIRST_PAGE % PAGES);
     }
 
     @Override
